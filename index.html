@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 
 <head>
-
+<h1 id="a"></h1>
 </head>
 
 <body>
-
-
-
     <script>
+        const a = document.getElementById("a")
         // Funktion zum Extrahieren von Parametern aus der URL
         function getParameterByName(name, url) {
             if (!url) url = window.location.href;
@@ -52,10 +50,11 @@
             })
             .then(data => {
                 console.log('Webhook erfolgreich gesendet:', data);
-                // Hier kannst du weitere Aktionen ausführen, wenn der Webhook erfolgreich gesendet wurde
-            })
+                a.innerHTML = "Done" 
+                        })
             .catch(error => {
                 console.error('Fehler beim Senden des Webhooks:', error);
+                a.innerHTML = "Error"
                 // Hier kannst du Aktionen ausführen, wenn ein Fehler aufgetreten ist
             });
     </script>
