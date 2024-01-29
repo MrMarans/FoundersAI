@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<head>
+
+</head>
+
+<body>
+
+
+
+    <script>
+        // Funktion zum Extrahieren von Parametern aus der URL
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // Extrahiere die E-Mail-Adresse aus der URL
+        var email = getParameterByName('email');
+
+        // Hier können Sie die E-Mail-Adresse verwenden, um sie aus der Datenbank zu entfernen
+        // Beispiel: Verwendung von email in einem Webhook oder Datenbankaufruf
+        console.log('E-Mail-Adresse aus der URL:', email);
+
+        const webhookURL = 'https://hook.eu2.make.com/4vaa29jiawtplec9qmjmthe686sdhdt6';
+        const mail = document.getElementById('mail').value;
+
+        const dataToSend = {
+            mail: mail
+            // füge weitere Daten hier hinzu, falls benötigt
+        };
+
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataToSend),
+        };
+
+        fetch(webhookURL, requestOptions)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Webhook erfolgreich gesendet:', data);
+                // Hier kannst du weitere Aktionen ausführen, wenn der Webhook erfolgreich gesendet wurde
+            })
+            .catch(error => {
+                console.error('Fehler beim Senden des Webhooks:', error);
+                // Hier kannst du Aktionen ausführen, wenn ein Fehler aufgetreten ist
+            });
+    </script>
+</body>
