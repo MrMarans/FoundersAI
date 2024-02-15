@@ -1,1 +1,1 @@
-This is just some tests to implement in the website
+This repository is used to write tests for implementations for a website. 
